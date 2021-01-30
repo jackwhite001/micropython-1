@@ -1,4 +1,4 @@
-#define MICROPY_HW_BOARD_NAME       "01Studio Columbus"
+#define MICROPY_HW_BOARD_NAME       "Columbus 2.0"
 #define MICROPY_HW_MCU_NAME         "STM32F407ZGT6"
 #define	MICROPY_HW_FLASH_FS_LABEL		"COLUMBUS"
 
@@ -23,8 +23,7 @@
 
 //touch
 #define	MICROPY_ENABLE_TOUCH					(1)   //enable mode
-#define	MICROPY_HW_GT1151							(1)   //使用触摸芯片型号
-
+#define	MICROPY_HW_GT1151							(1)   //使用触摸芯片型号1
 //------------------------------------------------------------------------------------
 //TFTLCD
 #define MICROPY_ENABLE_TFTLCD					(1)
@@ -82,8 +81,8 @@
 //#define MICROPY_HW_UART_REPL_BAUD   115200
 
 #define MICROPY_HW_UART1_NAME   "UART1"    // on RX / TX
-#define MICROPY_HW_UART1_TX     (pin_B6)
-#define MICROPY_HW_UART1_RX     (pin_B7)
+#define MICROPY_HW_UART1_TX     (pin_A9)
+#define MICROPY_HW_UART1_RX     (pin_A10)
 
 #define MICROPY_HW_UART2_NAME   "UART2"    // on RX / TX
 #define MICROPY_HW_UART2_TX     (pin_A2)
@@ -98,8 +97,11 @@
 #define MICROPY_HW_UART4_RX     (pin_A1)
 
 #define MICROPY_HW_UART6_NAME   "UART6"
-#define MICROPY_HW_UART6_TX     (pin_C6)
-#define MICROPY_HW_UART6_RX     (pin_C7)
+// NOTE: PC6 is connected to MCLK on the Audio chip. This is an input signal
+//       so I think as long as you're not using the audio chip then it should
+//       be fine to use as a UART pin.
+#define MICROPY_HW_UART6_TX     (pin_C6)  //I2S_MCLK and DCMI_D0
+#define MICROPY_HW_UART6_RX     (pin_C7)  //DCMI_D1
 
 // use external SPI flash for storage
 #define MICROPY_HW_SPIFLASH_SIZE_BITS (128 * 1024 * 1024)
@@ -136,8 +138,8 @@ extern struct _spi_bdev_t spi_bdev;
 
 // CAN busses
 #define MICROPY_HW_CAN1_NAME "CAN1"
-#define MICROPY_HW_CAN1_TX (pin_B9)		//I2C1占用
-#define MICROPY_HW_CAN1_RX (pin_B8) 	//I2C1占用
+#define MICROPY_HW_CAN1_TX (pin_A12)		//
+#define MICROPY_HW_CAN1_RX (pin_A11) 	//
 
 #define MICROPY_HW_CAN2_NAME "CAN2"
 #define MICROPY_HW_CAN2_TX (pin_B13)	//I2S1复用
@@ -162,10 +164,10 @@ extern struct _spi_bdev_t spi_bdev;
 #define MICROPY_HW_SDCARD_DETECT_PRESENT    (GPIO_PIN_RESET)
 
 // LEDs
-#define MICROPY_HW_LED1             	(pin_E2) // red
-#define MICROPY_HW_LED2             	(pin_F8) // green
-#define MICROPY_HW_LED3             	(pin_F9) // orange
-#define MICROPY_HW_LED4             	(pin_F10) // blue
+#define MICROPY_HW_LED1             	(pin_F9) // red
+#define MICROPY_HW_LED2             	(pin_F10) // green
+//#define MICROPY_HW_LED3             	(pin_F9) // orange
+//#define MICROPY_HW_LED4             	(pin_F10) // blue
 #define MICROPY_HW_LED_OFF(pin)      	(mp_hal_pin_low(pin))
 #define MICROPY_HW_LED_ON(pin)     		(mp_hal_pin_high(pin))
 // USB config
